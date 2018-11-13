@@ -50,6 +50,10 @@ function integrate() {
   requestAnimationFrame(integrate)
 }
 
-genesis()
-integrate()
+function startAnimation() {
+  genesis()
+  integrate()
+}
+
+img.onload = startAnimation
 img.src = "particle.png"
