@@ -2,11 +2,13 @@ const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
 
 function renderParticle(particle) {
+  const x = particle.r.x - particle.radius
+  const y = particle.r.y - particle.radius
+  const size = 2*particle.radius
+  ctx.drawImage(img, x, y, size, size)
   ctx.beginPath()
   ctx.arc(particle.r.x, particle.r.y, particle.radius, 0, 2*Math.PI)
-  ctx.fillStyle = "white"
-  ctx.fill()
-  ctx.strokeStyle = "white"
+  ctx.strokeStyle = "rgba(0,0,0,0)"
   ctx.stroke()
 }
 
