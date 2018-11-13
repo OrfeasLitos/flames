@@ -5,9 +5,9 @@ class Rect {
   }
 
   intersectsCircle(circle) {
-    return circle.r.x - circle.radius > this.begin.x
-        && circle.r.x + circle.radius < this.end.x
-        && circle.r.y - circle.radius > this.begin.y
-        && circle.r.y + circle.radius < this.end.y
+    return circle.r.x + circle.radius > this.begin.x
+        && circle.r.x - circle.radius < this.end.x
+        && circle.r.y + circle.radius > this.begin.y
+        && circle.r.y - circle.radius < this.end.y
   }
 }
