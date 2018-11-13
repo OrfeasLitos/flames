@@ -12,6 +12,8 @@ let t = new Date() | 0
 
 const particles = []
 
+const img = new Image()
+
 function genesis() {
   for (let i = 0; i < N; i++) {
     const pos = new Vector(W/2, H/2 - Math.random()*H/2)
@@ -50,3 +52,4 @@ function integrate() {
 
 genesis()
 integrate()
+img.src = "particle.png"
