@@ -1,4 +1,4 @@
-const RADIUS = 10
+const RADIUS = 30
 const N = 100
 const G = 10
 const SPEED = 0.001
