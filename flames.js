@@ -3,20 +3,22 @@ const N = 100
 const G = 10
 const SPEED = 0.001
 
-let W = 600
-let H = 600
+let W, H
 
-const boundingBox = new Rect(new Vector(0, 0), new Vector(W, H))
+let boundingBox = new Rect(new Vector(0, 0), new Vector(W, H))
 let t = new Date() | 0
 
 let particles = []
 
-window.addEventListener("resize", () => {
+window.addEventListener("resize", initializeDimensions)
+
+function initializeDimensions() {
   W = window.innerWidth
   H = window.innerHeight
   particles = []
+  boundingBox = new Rect(new Vector(0, 0), new Vector(W, H))
   genesis()
-})
+}
 
 function genesis() {
   for (let i = 0; i < N; i++) {
@@ -53,6 +55,8 @@ function integrate() {
 
   requestAnimationFrame(integrate)
 }
+
+initializeDimensions()
 
 genesis()
 integrate()
