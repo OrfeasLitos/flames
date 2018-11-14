@@ -60,21 +60,13 @@ function integrate() {
   }
 }
 
-function pause() {
-  running = false
-}
-
-function play() {
-  t = (new Date() | 0)
-  running = true
-  integrate()
-}
-
 function handleVisibilityChange() {
   if (document.hidden) {
-    pause();
+    running = false
   } else {
-    play();
+    t = (new Date() | 0)
+    running = true
+    integrate()
   }
 }
 
