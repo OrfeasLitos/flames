@@ -11,6 +11,7 @@ let t = new Date() | 0
 let particles = []
 
 let running = !document.hidden
+let animationFrameRequested = false
 
 window.addEventListener("resize", initializeDimensions)
 
@@ -57,6 +58,9 @@ function integrate() {
       integrateParticle(particles[i], i, dt)
     }
     requestAnimationFrame(integrate)
+    animationFrameRequested = true
+  } else {
+    animationFrameRequested = false
   }
 }
 
@@ -66,7 +70,9 @@ function handleVisibilityChange() {
   } else {
     t = (new Date() | 0)
     running = true
-    integrate()
+    if (!animationFrameRequested) {
+      integrate()
+    }
   }
 }
 
