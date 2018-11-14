@@ -15,6 +15,8 @@ window.addEventListener("resize", initializeDimensions)
 function initializeDimensions() {
   W = window.innerWidth
   H = window.innerHeight
+  canvas.width = W
+  canvas.height = H
   particles = []
   boundingBox = new Rect(new Vector(0, 0), new Vector(W, H))
   genesis()
@@ -31,7 +33,6 @@ function genesis() {
 function rebirth(id) {
   particles[id] = new Particle(new Vector(W/2, H - RADIUS), RADIUS)
 }
-
 
 function integrateParticle(particle, id, dt) {
   const a = new Vector(0, -G)
@@ -57,6 +58,4 @@ function integrate() {
 }
 
 initializeDimensions()
-
-genesis()
 integrate()
