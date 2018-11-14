@@ -8,11 +8,19 @@ function renderParticle(particle) {
   const x = particle.r.x - particle.radius
   const y = particle.r.y - particle.radius
   const size = 2*particle.radius
-  ctx.drawImage(img, x, y, size, size)
+
+  ctx.save()
+
+  ctx.translate(particle.r.x, particle.r.y)
+  ctx.rotate(particle.theta)
+  ctx.translate(-particle.radius, -particle.radius)
+  ctx.drawImage(img, 0, 0, size, size)
   ctx.beginPath()
   ctx.arc(particle.r.x, particle.r.y, particle.radius, 0, 2*Math.PI)
   ctx.strokeStyle = "rgba(0,0,0,0)"
   ctx.stroke()
+
+  ctx.restore()
 }
 
 function render() {

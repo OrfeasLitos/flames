@@ -28,13 +28,14 @@ function initializeDimensions() {
 function genesis() {
   for (let i = 0; i < N; i++) {
     const pos = new Vector(W/2, H - Math.random()*H - RADIUS)
-    const particle = new Particle(pos, RADIUS)
+    const particle = new Particle(pos, RADIUS, Math.random()*2*Math.PI)
     particles.push(particle)
   }
 }
 
 function rebirth(id) {
-  particles[id] = new Particle(new Vector(W/2, H - RADIUS), RADIUS)
+  const pos = new Vector(W/2, H - RADIUS)
+  particles[id] = new Particle(pos, RADIUS, Math.random()*2*Math.PI)
 }
 
 function integrateParticle(particle, id, dt) {
