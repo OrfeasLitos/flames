@@ -1,6 +1,9 @@
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
 
+const img = new Image()
+let imgLoaded = false
+
 function renderParticle(particle) {
   const x = particle.r.x - particle.radius
   const y = particle.r.y - particle.radius
@@ -13,8 +16,17 @@ function renderParticle(particle) {
 }
 
 function render() {
-  ctx.clearRect(0, 0, W, H)
-  for (let particle of particles) {
-    renderParticle(particle)
+  if (imgLoaded) {
+    ctx.clearRect(0, 0, W, H)
+    for (let particle of particles) {
+      renderParticle(particle)
+    }
   }
 }
+
+function setImgLoaded() {
+  imgLoaded = true
+}
+
+img.onload = setImgLoaded
+img.src = "particle.png"
