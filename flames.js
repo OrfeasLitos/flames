@@ -10,6 +10,8 @@ let t = new Date() | 0
 
 let particles = []
 
+let running = !document.hidden
+
 window.addEventListener("resize", initializeDimensions)
 
 function initializeDimensions() {
@@ -45,17 +47,38 @@ function integrateParticle(particle, id, dt) {
 }
 
 function integrate() {
-  render()
-  let dt = (new Date() | 0) - t
-  t += dt
-  dt *= SPEED
+  if (running) {
+    render()
+    let dt = (new Date() | 0) - t
+    t += dt
+    dt *= SPEED
 
-  for (let i in particles) {
-    integrateParticle(particles[i], i, dt)
+    for (let i in particles) {
+      integrateParticle(particles[i], i, dt)
+    }
+    requestAnimationFrame(integrate)
   }
-
-  requestAnimationFrame(integrate)
 }
+
+function pause() {
+  running = false
+}
+
+function play() {
+  t = (new Date() | 0)
+  running = true
+  integrate()
+}
+
+function handleVisibilityChange() {
+  if (document.hidden) {
+    pause();
+  } else {
+    play();
+  }
+}
+
+document.addEventListener("visibilitychange", handleVisibilityChange);
 
 initializeDimensions()
 integrate()
