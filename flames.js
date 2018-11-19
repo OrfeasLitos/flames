@@ -39,7 +39,7 @@ function rebirth(id) {
 }
 
 function integrateParticle(particle, id, dt) {
-  const a = new Vector(0, -G)
+  const a = particle.a.add(new Vector(0, -G))
   particle.u = particle.u.add(a.scale(dt))
   particle.r = particle.r.add(particle.u.scale(dt))
 
