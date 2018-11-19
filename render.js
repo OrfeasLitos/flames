@@ -1,4 +1,8 @@
-const BRIGHTEST = 0.7
+const gamma = require("gamma-distribution")
+
+const GAMMA_K = 1.9
+const GAMMA_THETA = 1
+const SCALE = 5
 
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
@@ -6,18 +10,25 @@ const ctx = canvas.getContext("2d")
 const img = new Image()
 let imgLoaded = false
 
+function clamp(value, min, max) {
+  return (value <= min) ? min :
+         (value >= max) ? max :
+          value
+}
+
 function getOpacity(particle) {
   const y = particle.r.y
   const range = H - particle.radius
+  const scale = SCALE*(range - y)/range
   let opacity
 
-  if (y > range) {
+  if (y >= range || y <= -particle.radius) {
     opacity = 0
-  } else if (y > range*BRIGHTEST) {
-    const a = Math.PI/2/(range*(1-BRIGHTEST))
-    opacity = Math.sin(a*(range - y))
   } else {
-    opacity = 0
+    const amp = 1/((GAMMA_K - 1) * GAMMA_THETA)
+    opacity = amp*gamma.pdf(scale, GAMMA_K, GAMMA_THETA)
+    opacity += particle.fade
+    opacity = clamp(opacity, 0, 1)
   }
   return opacity
 }
