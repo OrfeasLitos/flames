@@ -53,7 +53,7 @@ function renderParticle(particle) {
   ctx.restore()
 }
 
-function render() {
+window.render = function () {
   if (imgLoaded) {
     ctx.clearRect(0, 0, W, H)
     for (let particle of particles) {
