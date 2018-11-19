@@ -1,5 +1,6 @@
 const MAX_SPREAD = 20
 const MAX_ACC_DEV = 15
+const MAX_FADE_DEV = 0.5
 
 class Particle {
   constructor(r, radius, theta = 0) {
@@ -16,5 +17,7 @@ class Particle {
     this.a = new Vector(0,
       Math.random()*MAX_ACC_DEV - MAX_ACC_DEV/2
     )
+
+    this.fade = Math.random()*MAX_FADE_DEV - MAX_FADE_DEV*0.5
   }
 }
