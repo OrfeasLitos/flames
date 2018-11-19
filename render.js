@@ -67,4 +67,4 @@ function setImgLoaded() {
 }
 
 img.onload = setImgLoaded
-img.src = "particle.png"
+img.src = "betterParticle.png"
