@@ -4,11 +4,13 @@ const GAMMA_K = 1.9
 const GAMMA_THETA = 1
 const SCALE = 5
 
+const IMGS_NO = 2
+
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
 
-const imgs = [new Image(), new Image()]
-let imgLoaded = [false, false]
+const img = Array(IMGS_NO)
+const imgLoaded = Array(IMGS_NO)
 
 function clamp(value, min, max) {
   return (value <= min) ? min :
@@ -64,13 +66,16 @@ window.render = function () {
 
   if (imgsLoaded) {
     ctx.clearRect(0, 0, W, H)
-    for (let i in particles) {
-      renderParticle(particles[i], i % imgs.length)
+    for (const i in particles) {
+      renderParticle(particles[i], i % IMGS_NO)
     }
   }
 }
 
-for (const i = 0; i < 2; i++) {
+for (const i in img) {
+  img[i] = new Image()
+  imgLoaded[i] = false
+
   img[i].onload = function () {
     imgLoaded[i] = true
   }
