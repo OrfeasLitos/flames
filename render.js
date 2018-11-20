@@ -67,7 +67,7 @@ window.render = function () {
   }
 }
 
-for (const i in img) {
+for (let i = 0; i < IMGS_NO; i++) {
   img[i] = new Image()
   imgLoaded[i] = false
 
