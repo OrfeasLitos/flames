@@ -62,7 +62,7 @@ window.render = function () {
     } else {
       return true
     }
-  )
+  })
 
   if (imgsLoaded) {
     ctx.clearRect(0, 0, W, H)
