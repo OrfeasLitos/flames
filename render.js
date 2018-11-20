@@ -56,13 +56,8 @@ function renderParticle(particle, i) {
 }
 
 window.render = function () {
-  const imgsLoaded = imgLoaded.reduce((img, acc) => {
-    if (!acc || !img) {
-      return false
-    } else {
-      return true
-    }
-  })
+  const imgsLoaded = imgLoaded.reduce((img, acc) =>
+    (!acc || !img) ? false : true, true)
 
   if (imgsLoaded) {
     ctx.clearRect(0, 0, W, H)
