@@ -7,8 +7,8 @@ const SCALE = 5
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
 
-const img = new Image()
-let imgLoaded = false
+const imgs = [new Image(), new Image()]
+let imgLoaded = [false, false]
 
 function clamp(value, min, max) {
   return (value <= min) ? min :
@@ -33,7 +33,7 @@ function getOpacity(particle) {
   return opacity
 }
 
-function renderParticle(particle) {
+function renderParticle(particle, i) {
   const x = particle.r.x - particle.radius
   const y = particle.r.y - particle.radius
   const size = 2*particle.radius
@@ -44,7 +44,7 @@ function renderParticle(particle) {
   ctx.rotate(particle.theta)
   ctx.translate(-particle.radius, -particle.radius)
   ctx.globalAlpha = getOpacity(particle)
-  ctx.drawImage(img, 0, 0, size, size)
+  ctx.drawImage(img[i], 0, 0, size, size)
   ctx.beginPath()
   ctx.arc(particle.r.x, particle.r.y, particle.radius, 0, 2*Math.PI)
   ctx.strokeStyle = "rgba(0,0,0,0)"
@@ -54,17 +54,25 @@ function renderParticle(particle) {
 }
 
 window.render = function () {
-  if (imgLoaded) {
+  const imgsLoaded = imgLoaded.reduce((img, acc) => {
+    if (!acc || !img) {
+      return false
+    } else {
+      return true
+    }
+  )
+
+  if (imgsLoaded) {
     ctx.clearRect(0, 0, W, H)
-    for (let particle of particles) {
-      renderParticle(particle)
+    for (let i in particles) {
+      renderParticle(particles[i], i % imgs.length)
     }
   }
 }
 
-function setImgLoaded() {
-  imgLoaded = true
+for (const i = 0; i < 2; i++) {
+  img[i].onload = function () {
+    imgLoaded[i] = true
+  }
+  img[i].src = "particle" + i + ".png"
 }
-
-img.onload = setImgLoaded
-img.src = "betterParticle.png"
