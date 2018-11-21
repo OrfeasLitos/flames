@@ -58,7 +58,24 @@ window.render = function () {
 
   if (imgsLoaded) {
     ctx.clearRect(0, 0, W, H)
-    ctx.drawImage(imgBackground, 0, 0, imgBackground.width, imgBackground.height)
+    const aspectRatio1 = W / imgBackground.width
+    const aspectRatio2 = H / imgBackground.height
+    let aspectRatio
+
+    if (aspectRatio1 * imgBackground.height < H) {
+      aspectRatio = aspectRatio1
+    }
+    else {
+      aspectRatio = aspectRatio2
+    }
+    const imageW = aspectRatio * imgBackground.width
+    const imageH = aspectRatio * imgBackground.height
+
+    ctx.drawImage(
+      imgBackground,
+      W / 2 - imageW / 2, H / 2 - imageH / 2,
+      imageW, imageH
+    )
     for (const particle of particles) {
       renderParticle(particle)
     }

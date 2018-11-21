@@ -1,6 +1,5 @@
 const MAX_SPREAD = 20
 const MAX_ACC_DEV = 15
-const MAX_FADE_DEV = 0.5
 
 class Particle {
   constructor(r, radius, theta = 0) {

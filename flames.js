@@ -54,12 +54,6 @@ function integrateParticle(particle, id, dt) {
   if (particle.lifetime > particle.totalLifetime) {
     rebirth(id)
   }
-
-  /*
-  if (!boundingBox.intersectsCircle(particle)) {
-    rebirth(id)
-  }
-  */
 }
 
 function integrate() {
