@@ -12,12 +12,7 @@ const ctx = canvas.getContext("2d")
 const img = Array(IMGS_NO)
 const imgLoaded = Array(IMGS_NO)
 
-function clamp(value, min, max) {
-  return (value <= min) ? min :
-         (value >= max) ? max :
-          value
-}
-
+/*
 function getOpacity(particle) {
   const y = particle.r.y
   const range = H - particle.radius
@@ -29,11 +24,12 @@ function getOpacity(particle) {
   } else {
     const amp = 1/((GAMMA_K - 1) * GAMMA_THETA)
     opacity = amp*gamma.pdf(scale, GAMMA_K, GAMMA_THETA)
-    opacity += particle.fade
-    opacity = clamp(opacity, 0, 1)
+    // opacity += particle.fade
+    opacity = clamp(0, opacity, 1)
   }
   return opacity
 }
+*/
 
 function renderParticle(particle, i) {
   const x = particle.r.x - particle.radius
@@ -45,7 +41,7 @@ function renderParticle(particle, i) {
   ctx.translate(particle.r.x, particle.r.y)
   ctx.rotate(particle.theta)
   ctx.translate(-particle.radius, -particle.radius)
-  ctx.globalAlpha = getOpacity(particle)
+  ctx.globalAlpha = particle.opacity // getOpacity(particle)
   ctx.drawImage(img[i], 0, 0, size, size)
   ctx.beginPath()
   ctx.arc(particle.r.x, particle.r.y, particle.radius, 0, 2*Math.PI)

@@ -18,6 +18,10 @@ class Particle {
       Math.random()*MAX_ACC_DEV - MAX_ACC_DEV/2
     )
 
-    this.fade = Math.random()*MAX_FADE_DEV - MAX_FADE_DEV*0.5
+    this.lifetime = 0
+    this.appearLifetime = 1 + Math.random() * 0.5
+    this.disappearLifetime = 2 + Math.random() * 0.5
+    this.totalLifetime = this.appearLifetime + this.disappearLifetime
+    this.opacity = 0
   }
 }
