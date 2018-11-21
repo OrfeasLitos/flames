@@ -23,5 +23,6 @@ class Particle {
     this.disappearLifetime = 2 + Math.random() * 0.5
     this.totalLifetime = this.appearLifetime + this.disappearLifetime
     this.opacity = 0
+    this.spriteIndex = Math.floor(Math.random() * IMGS_NO)
   }
 }

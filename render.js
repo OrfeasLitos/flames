@@ -4,13 +4,15 @@ const GAMMA_K = 1.9
 const GAMMA_THETA = 1
 const SCALE = 5
 
-const IMGS_NO = 2
+window.IMGS_NO = 2
 
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
 
-const img = Array(IMGS_NO)
-const imgLoaded = Array(IMGS_NO)
+const img = []
+const imgLoaded = []
+const imgBackground = new Image()
+imgBackground.src = 'background.jpg'
 
 /*
 function getOpacity(particle) {
@@ -31,7 +33,7 @@ function getOpacity(particle) {
 }
 */
 
-function renderParticle(particle, i) {
+function renderParticle(particle) {
   const x = particle.r.x - particle.radius
   const y = particle.r.y - particle.radius
   const size = 2*particle.radius
@@ -42,7 +44,7 @@ function renderParticle(particle, i) {
   ctx.rotate(particle.theta)
   ctx.translate(-particle.radius, -particle.radius)
   ctx.globalAlpha = particle.opacity // getOpacity(particle)
-  ctx.drawImage(img[i], 0, 0, size, size)
+  ctx.drawImage(img[particle.spriteIndex], 0, 0, size, size)
   ctx.beginPath()
   ctx.arc(particle.r.x, particle.r.y, particle.radius, 0, 2*Math.PI)
   ctx.strokeStyle = "rgba(0,0,0,0)"
@@ -52,23 +54,29 @@ function renderParticle(particle, i) {
 }
 
 window.render = function () {
-  const imgsLoaded = imgLoaded.reduce((img, acc) =>
-    (!acc || !img) ? false : true, true)
+  const imgsLoaded = imgLoaded.every(x => x)
 
   if (imgsLoaded) {
     ctx.clearRect(0, 0, W, H)
-    for (const i in particles) {
-      renderParticle(particles[i], i % IMGS_NO)
+    ctx.drawImage(imgBackground, 0, 0, imgBackground.width, imgBackground.height)
+    for (const particle of particles) {
+      renderParticle(particle)
     }
   }
 }
 
 for (let i = 0; i < IMGS_NO; i++) {
-  img[i] = new Image()
-  imgLoaded[i] = false
+  const image = new Image()
+  img.push(image)
+  imgLoaded.push(false)
 
-  img[i].onload = function () {
+  image.onload = function () {
     imgLoaded[i] = true
   }
-  img[i].src = "particle" + i + ".png"
+  image.src = "particle" + i + ".png"
+}
+imgLoaded.push(false)
+
+imgBackground.onload = function () {
+  imgLoaded[IMGS_NO] = true
 }
